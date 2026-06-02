@@ -69,15 +69,15 @@ function ClientPage() {
         <h2 className="font-display text-lg font-semibold mb-5">Farm Status</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { p: "Plot A", c: "Maize", s: "Growing", t: "primary" },
-            { p: "Plot B", c: "Beans", s: "Planted", t: "gold" },
-            { p: "Plot C", c: "Sunflower", s: "Pre-plant", t: "soil" },
-            { p: "Plot D", c: "Sorghum", s: "Harvest soon", t: "primary" },
+            { p: "Plot A", c: "Maize", s: "Growing", t: "bg-primary/10 text-primary" },
+            { p: "Plot B", c: "Beans", s: "Planted", t: "bg-gold/20 text-gold-foreground" },
+            { p: "Plot C", c: "Sunflower", s: "Pre-plant", t: "bg-soil/10 text-soil" },
+            { p: "Plot D", c: "Sorghum", s: "Harvest soon", t: "bg-primary/10 text-primary" },
           ].map((p) => (
             <div key={p.p} className="rounded-xl bg-muted/40 p-5">
               <div className="text-xs text-muted-foreground">{p.p}</div>
               <div className="font-display font-semibold mt-1">{p.c}</div>
-              <div className={`mt-3 inline-block text-xs px-2 py-0.5 rounded-full bg-${p.t}/10 text-${p.t}`}>
+              <div className={`mt-3 inline-block text-xs px-2 py-0.5 rounded-full ${p.t}`}>
                 {p.s}
               </div>
             </div>

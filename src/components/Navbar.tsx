@@ -49,9 +49,9 @@ export function Navbar({ onLogin }: { onLogin: () => void }) {
         </nav>
         <div className="flex items-center gap-2">
           {user ? (
-            <Link to={`/${user.role === "agent" ? "agent" : user.role}` as string}>
+            <a href={`/${user.role}`}>
               <Button size="sm" variant="outline">Dashboard</Button>
-            </Link>
+            </a>
           ) : (
             <Button size="sm" onClick={onLogin} className="bg-gradient-primary text-primary-foreground hover:opacity-90">
               Sign In
