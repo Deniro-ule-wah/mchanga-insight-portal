@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import {
   Dialog,
@@ -32,10 +32,10 @@ export function LoginModal({ open, onOpenChange, initialRole }: Props) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // Sync initialRole when modal reopens
-  if (open && initialRole && role !== initialRole && !email) {
-    // no-op; allow user to switch freely
-  }
+  useEffect(() => {
+    if (open) setRole(initialRole ?? null);
+  }, [open, initialRole]);
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
