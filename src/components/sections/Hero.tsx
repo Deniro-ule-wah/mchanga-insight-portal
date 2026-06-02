@@ -8,7 +8,8 @@ export function Hero({ onLogin }: { onLogin: (role?: Role) => void }) {
     <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
       <div className="absolute inset-0 -z-10">
         <img src={hero} alt="" className="h-full w-full object-cover" width={1920} height={1080} />
-        <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/85 to-background/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-background/50 via-background/20 to-background/40" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.78_0.13_85/0.15),_transparent_50%)]" />
       </div>
 
