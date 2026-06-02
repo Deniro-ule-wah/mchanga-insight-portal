@@ -1,29 +1,53 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { Toaster } from "@/components/ui/sonner";
+import { Navbar } from "@/components/Navbar";
+import { LoginModal } from "@/components/LoginModal";
+import { Hero } from "@/components/sections/Hero";
+import { About } from "@/components/sections/About";
+import { Services } from "@/components/sections/Services";
+import { RoleAccess } from "@/components/sections/RoleAccess";
+import { DataPreview } from "@/components/sections/DataPreview";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { Contact } from "@/components/sections/Contact";
+import { Footer } from "@/components/sections/Footer";
+import type { Role } from "@/lib/auth";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "Mchanga Afya — Soil Intelligence for Sustainable Farming" },
+      { name: "description", content: "Data-driven agriculture intelligence for Africa. Soil testing, fertilizer optimization and yield prediction for farms, agents and cooperatives." },
+      { property: "og:title", content: "Mchanga Afya — Agricultural Intelligence" },
+      { property: "og:description", content: "Soil intelligence, fertilizer optimization and yield prediction for African agriculture." },
     ],
+    links: [{ rel: "icon", type: "image/png", href: "/favicon.png" }],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const [open, setOpen] = useState(false);
+  const [role, setRole] = useState<Role | undefined>(undefined);
+
+  const openLogin = (r?: Role) => {
+    setRole(r);
+    setOpen(true);
+  };
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen">
+      <Navbar onLogin={() => openLogin()} />
+      <Hero onLogin={openLogin} />
+      <About />
+      <Services />
+      <RoleAccess onLogin={openLogin} />
+      <DataPreview />
+      <Testimonials />
+      <Contact />
+      <Footer />
+      <LoginModal open={open} onOpenChange={setOpen} initialRole={role} />
+      <Toaster richColors position="top-right" />
     </div>
   );
 }
