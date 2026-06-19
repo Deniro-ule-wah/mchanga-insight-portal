@@ -9,19 +9,31 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ClientRouteImport } from './routes/client'
-import { Route as AgentRouteImport } from './routes/agent'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as FarmerDashboardRouteImport } from './routes/farmer-dashboard'
+import { Route as CountyDashboardRouteImport } from './routes/county-dashboard'
+import { Route as AgentDashboardRouteImport } from './routes/agent-dashboard'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 
-const ClientRoute = ClientRouteImport.update({
-  id: '/client',
-  path: '/client',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AgentRoute = AgentRouteImport.update({
-  id: '/agent',
-  path: '/agent',
+const FarmerDashboardRoute = FarmerDashboardRouteImport.update({
+  id: '/farmer-dashboard',
+  path: '/farmer-dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CountyDashboardRoute = CountyDashboardRouteImport.update({
+  id: '/county-dashboard',
+  path: '/county-dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgentDashboardRoute = AgentDashboardRouteImport.update({
+  id: '/agent-dashboard',
+  path: '/agent-dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -38,51 +50,92 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/agent': typeof AgentRoute
-  '/client': typeof ClientRoute
+  '/agent-dashboard': typeof AgentDashboardRoute
+  '/county-dashboard': typeof CountyDashboardRoute
+  '/farmer-dashboard': typeof FarmerDashboardRoute
+  '/login': typeof LoginRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/agent': typeof AgentRoute
-  '/client': typeof ClientRoute
+  '/agent-dashboard': typeof AgentDashboardRoute
+  '/county-dashboard': typeof CountyDashboardRoute
+  '/farmer-dashboard': typeof FarmerDashboardRoute
+  '/login': typeof LoginRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/agent': typeof AgentRoute
-  '/client': typeof ClientRoute
+  '/agent-dashboard': typeof AgentDashboardRoute
+  '/county-dashboard': typeof CountyDashboardRoute
+  '/farmer-dashboard': typeof FarmerDashboardRoute
+  '/login': typeof LoginRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/agent' | '/client'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/agent-dashboard'
+    | '/county-dashboard'
+    | '/farmer-dashboard'
+    | '/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/agent' | '/client'
-  id: '__root__' | '/' | '/admin' | '/agent' | '/client'
+  to:
+    | '/'
+    | '/admin'
+    | '/agent-dashboard'
+    | '/county-dashboard'
+    | '/farmer-dashboard'
+    | '/login'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/agent-dashboard'
+    | '/county-dashboard'
+    | '/farmer-dashboard'
+    | '/login'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
-  AgentRoute: typeof AgentRoute
-  ClientRoute: typeof ClientRoute
+  AgentDashboardRoute: typeof AgentDashboardRoute
+  CountyDashboardRoute: typeof CountyDashboardRoute
+  FarmerDashboardRoute: typeof FarmerDashboardRoute
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/client': {
-      id: '/client'
-      path: '/client'
-      fullPath: '/client'
-      preLoaderRoute: typeof ClientRouteImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/agent': {
-      id: '/agent'
-      path: '/agent'
-      fullPath: '/agent'
-      preLoaderRoute: typeof AgentRouteImport
+    '/farmer-dashboard': {
+      id: '/farmer-dashboard'
+      path: '/farmer-dashboard'
+      fullPath: '/farmer-dashboard'
+      preLoaderRoute: typeof FarmerDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/county-dashboard': {
+      id: '/county-dashboard'
+      path: '/county-dashboard'
+      fullPath: '/county-dashboard'
+      preLoaderRoute: typeof CountyDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agent-dashboard': {
+      id: '/agent-dashboard'
+      path: '/agent-dashboard'
+      fullPath: '/agent-dashboard'
+      preLoaderRoute: typeof AgentDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -105,19 +158,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
-  AgentRoute: AgentRoute,
-  ClientRoute: ClientRoute,
+  AgentDashboardRoute: AgentDashboardRoute,
+  CountyDashboardRoute: CountyDashboardRoute,
+  FarmerDashboardRoute: FarmerDashboardRoute,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

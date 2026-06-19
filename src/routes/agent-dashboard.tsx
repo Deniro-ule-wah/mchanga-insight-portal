@@ -11,8 +11,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import { Sprout, FlaskConical, BarChart3 } from "lucide-react";
 
-export const Route = createFileRoute("/agent")({
-  head: () => ({ meta: [{ title: "Field Agent · Mchanga Afya" }] }),
+export const Route = createFileRoute("/agent-dashboard")({
+  head: () => ({ meta: [{ title: "Field Agent · Mchanga Afya" }, { name: "robots", content: "noindex" }] }),
   component: AgentPage,
 });
 
@@ -26,7 +26,7 @@ function AgentPage() {
   return (
     <DashboardShell role="agent" title="Field Agent Console" subtitle="Capture and sync ground-truth data from your assigned farms.">
       <Tabs defaultValue="crop" className="space-y-6">
-        <TabsList className="grid w-full sm:w-auto sm:inline-grid grid-cols-3 sm:grid-cols-3">
+        <TabsList className="grid w-full sm:w-auto sm:inline-grid grid-cols-3">
           <TabsTrigger value="crop" className="gap-2"><Sprout className="h-4 w-4" /> Crop Cycle</TabsTrigger>
           <TabsTrigger value="fert" className="gap-2"><FlaskConical className="h-4 w-4" /> Fertilizer</TabsTrigger>
           <TabsTrigger value="yield" className="gap-2"><BarChart3 className="h-4 w-4" /> Yield</TabsTrigger>
@@ -35,11 +35,11 @@ function AgentPage() {
         <TabsContent value="crop">
           <FormCard title="New Crop Cycle" onSubmit={submit("Crop cycle")}>
             <Field label="Farmer ID" id="farmer" placeholder="F-2041" />
-            <SelectField label="Crop" name="crop" options={["Maize", "Beans", "Sunflower", "Sorghum", "Rice"]} />
+            <SelectField label="Crop" name="crop" options={["Maize", "Beans", "Tea", "Coffee", "Sorghum", "Rice"]} />
             <Field label="Plot ID" id="plot" placeholder="P-12" />
+            <Field label="County" id="county" placeholder="Nakuru" />
             <Field label="Planting Date" id="date" type="date" />
-            <Field label="Expected Harvest" id="harvest" type="date" />
-            <SelectField label="Season" name="season" options={["Vuli (short rains)", "Masika (long rains)"]} />
+            <SelectField label="Season" name="season" options={["Long rains", "Short rains"]} />
           </FormCard>
         </TabsContent>
 
@@ -50,7 +50,7 @@ function AgentPage() {
             <Field label="Rate (kg/ha)" id="rate" type="number" placeholder="120" />
             <Field label="Application Date" id="adate" type="date" />
             <SelectField label="Method" name="method" options={["Broadcast", "Top-dress", "Side-dress", "Foliar"]} />
-            <Field label="Cost (TZS)" id="cost" type="number" placeholder="180000" />
+            <Field label="Cost (KES)" id="cost" type="number" placeholder="6500" />
           </FormCard>
         </TabsContent>
 

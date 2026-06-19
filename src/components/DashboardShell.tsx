@@ -19,7 +19,7 @@ export function DashboardShell({ role, title, subtitle, children }: Props) {
   useEffect(() => {
     const u = auth.get();
     if (!u || u.role !== role) {
-      navigate({ to: "/" });
+      navigate({ to: "/login", search: { role } });
       return;
     }
     setUser(u);

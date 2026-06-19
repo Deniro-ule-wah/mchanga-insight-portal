@@ -1,7 +1,7 @@
 // Backend integration layer — wired to http://localhost:4000.
 // All calls are structured so the UI can swap mock fallbacks for live data later.
 
-export const API_BASE = "http://localhost:4000";
+export const API_BASE = (import.meta.env.VITE_API_BASE as string | undefined) ?? "http://localhost:4000";
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {

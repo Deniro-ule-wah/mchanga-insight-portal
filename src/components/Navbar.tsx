@@ -2,17 +2,17 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
-import { auth } from "@/lib/auth";
+import { auth, goToRoleHome } from "@/lib/auth";
 
 const sections = [
   { id: "about", label: "About" },
   { id: "services", label: "Services" },
-  { id: "access", label: "Portal Access" },
-  { id: "insights", label: "Insights" },
+  { id: "ai-advisor", label: "AI Advisor" },
+  { id: "trust", label: "Impact" },
   { id: "contact", label: "Contact" },
 ];
 
-export function Navbar({ onLogin }: { onLogin: () => void }) {
+export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const user = auth.get();
 
@@ -36,7 +36,7 @@ export function Navbar({ onLogin }: { onLogin: () => void }) {
             Mchanga <span className="text-primary">Afya</span>
           </span>
         </Link>
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
+        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-muted-foreground">
           {sections.map((s) => (
             <a
               key={s.id}
@@ -49,13 +49,20 @@ export function Navbar({ onLogin }: { onLogin: () => void }) {
         </nav>
         <div className="flex items-center gap-2">
           {user ? (
-            <a href={`/${user.role}`}>
-              <Button size="sm" variant="outline">Dashboard</Button>
-            </a>
-          ) : (
-            <Button size="sm" onClick={onLogin} className="bg-gradient-primary text-primary-foreground hover:opacity-90">
-              Sign In
+            <Button size="sm" variant="outline" onClick={() => goToRoleHome(user.role)}>
+              Dashboard
             </Button>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button size="sm" variant="ghost">Sign in</Button>
+              </Link>
+              <a href="#contact">
+                <Button size="sm" className="bg-gradient-primary text-primary-foreground hover:opacity-90">
+                  Request demo
+                </Button>
+              </a>
+            </>
           )}
         </div>
       </div>

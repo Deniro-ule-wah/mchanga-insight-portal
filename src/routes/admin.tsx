@@ -2,21 +2,23 @@ import { createFileRoute } from "@tanstack/react-router";
 import { DashboardShell } from "@/components/DashboardShell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, XCircle, Users, FileCheck, TrendingUp, AlertCircle } from "lucide-react";
+import { CheckCircle2, XCircle, Users, FileCheck, TrendingUp, AlertCircle, ExternalLink } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import { useState } from "react";
 
+const HUB_URL = "https://mchanga-akili-hub-main-cr6a.vercel.app/admin";
+
 export const Route = createFileRoute("/admin")({
-  head: () => ({ meta: [{ title: "Admin · Mchanga Afya" }] }),
+  head: () => ({ meta: [{ title: "Admin · Mchanga Afya" }, { name: "robots", content: "noindex" }] }),
   component: AdminPage,
 });
 
 const initialQueue = [
-  { id: "F-2041", farmer: "Esther Mwakasege", region: "Mbeya", type: "Soil Test", date: "2026-05-30" },
-  { id: "F-2042", farmer: "Joseph Kileo", region: "Iringa", type: "Yield Outcome", date: "2026-05-30" },
-  { id: "F-2043", farmer: "Amina Hassan", region: "Dodoma", type: "Fertilizer Application", date: "2026-05-29" },
-  { id: "F-2044", farmer: "Hamis Juma", region: "Morogoro", type: "Crop Cycle", date: "2026-05-29" },
+  { id: "F-2041", farmer: "Esther Wanjiru", region: "Nakuru", type: "Soil Test", date: "2026-05-30" },
+  { id: "F-2042", farmer: "Joseph Kimani", region: "Uasin Gishu", type: "Yield Outcome", date: "2026-05-30" },
+  { id: "F-2043", farmer: "Amina Mohammed", region: "Meru", type: "Fertilizer Application", date: "2026-05-29" },
+  { id: "F-2044", farmer: "Hamis Otieno", region: "Kisumu", type: "Crop Cycle", date: "2026-05-29" },
 ];
 
 function AdminPage() {
@@ -36,6 +38,18 @@ function AdminPage() {
 
   return (
     <DashboardShell role="admin" title="Administrator Overview" subtitle="Verify entries, manage users and monitor system health.">
+      <div className="mb-6 rounded-2xl border border-primary/30 bg-gradient-to-r from-primary/10 to-gold/10 p-6 shadow-soft flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <div className="font-display font-semibold">Open the Akili Control Hub</div>
+          <p className="text-sm text-muted-foreground">Full governance, user management & data pipeline tools.</p>
+        </div>
+        <a href={HUB_URL} target="_blank" rel="noreferrer">
+          <Button className="bg-foreground text-background hover:bg-foreground/90 gap-2">
+            Akili Hub <ExternalLink className="h-4 w-4" />
+          </Button>
+        </a>
+      </div>
+
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {stats.map((s) => (
           <div key={s.label} className="rounded-2xl border border-border bg-card p-6 shadow-soft">
@@ -66,7 +80,7 @@ function AdminPage() {
                 <div><div className="text-xs text-muted-foreground">Record</div><div className="font-medium">{q.id}</div></div>
                 <div><div className="text-xs text-muted-foreground">Farmer</div><div className="font-medium">{q.farmer}</div></div>
                 <div><div className="text-xs text-muted-foreground">Type</div><div className="font-medium">{q.type}</div></div>
-                <div><div className="text-xs text-muted-foreground">Region · Date</div><div className="font-medium">{q.region} · {q.date}</div></div>
+                <div><div className="text-xs text-muted-foreground">County · Date</div><div className="font-medium">{q.region} · {q.date}</div></div>
               </div>
               <div className="flex gap-2">
                 <Button size="sm" onClick={() => act(q.id, true)} className="bg-primary text-primary-foreground gap-1">
