@@ -53,13 +53,17 @@ function Index() {
     <div className="min-h-screen">
       <Navbar />
       <Hero />
-      <About />
+      <Modules />
       <Slides />
+      <CountyMap />
+      <LiveMetrics />
       <AIAdvisor />
+      <About />
       <TrustMetrics />
       <RoleAccess />
       <Contact />
       <Footer />
+
       <Toaster richColors position="top-right" />
     </div>
   );
