@@ -1,7 +1,7 @@
-import { Link } from "@tanstack/react-router";
 import hero from "@/assets/hero-farm.jpg";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, LogIn, Sparkles, Shield } from "lucide-react";
+import { ArrowRight, LogIn, Sparkles } from "lucide-react";
+
 
 const ADMIN_HUB = "https://mchanga-akili-hub-main-cr6a.vercel.app/admin";
 
