@@ -124,3 +124,35 @@ function FloatingCard() {
     </div>
   );
 }
+
+function GISOverlay() {
+  return (
+    <svg aria-hidden className="absolute inset-0 h-full w-full opacity-40 mix-blend-screen pointer-events-none" viewBox="0 0 800 600" preserveAspectRatio="none">
+      <defs>
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="oklch(0.78 0.13 85)" strokeWidth="0.4" opacity="0.5" />
+        </pattern>
+        <radialGradient id="heat" cx="65%" cy="35%" r="40%">
+          <stop offset="0%" stopColor="oklch(0.78 0.18 85)" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="oklch(0.62 0.15 145)" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <rect width="800" height="600" fill="url(#grid)" />
+      <rect width="800" height="600" fill="url(#heat)" />
+      {/* mock county boundary */}
+      <path d="M120 420 Q 200 360 280 380 T 460 360 T 640 400 L 660 520 L 140 540 Z"
+        fill="none" stroke="oklch(0.78 0.13 85)" strokeWidth="1.2" strokeDasharray="4 4" opacity="0.7" />
+      {/* pulse nodes */}
+      {[[220, 440], [380, 400], [520, 380], [600, 460]].map(([cx, cy], i) => (
+        <g key={i}>
+          <circle cx={cx} cy={cy} r="3" fill="oklch(0.78 0.18 85)" />
+          <circle cx={cx} cy={cy} r="3" fill="none" stroke="oklch(0.78 0.18 85)" strokeWidth="1">
+            <animate attributeName="r" from="3" to="22" dur="2.4s" begin={`${i * 0.4}s`} repeatCount="indefinite" />
+            <animate attributeName="opacity" from="0.8" to="0" dur="2.4s" begin={`${i * 0.4}s`} repeatCount="indefinite" />
+          </circle>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
