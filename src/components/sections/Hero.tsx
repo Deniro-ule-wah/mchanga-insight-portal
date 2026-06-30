@@ -1,17 +1,22 @@
-import { Link } from "@tanstack/react-router";
 import hero from "@/assets/hero-farm.jpg";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, LogIn, Sparkles } from "lucide-react";
+
+
+const ADMIN_HUB = "https://mchanga-akili-hub-main-cr6a.vercel.app/admin";
+
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        <img src={hero} alt="" className="h-full w-full object-cover" width={1920} height={1080} />
+        <img src={hero} alt="Aerial view of Kenyan farmland" className="h-full w-full object-cover" width={1920} height={1080} fetchPriority="high" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-br from-background/50 via-background/20 to-background/40" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.78_0.13_85/0.15),_transparent_50%)]" />
+        <GISOverlay />
       </div>
+
 
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div className="absolute top-1/4 right-[15%] h-2 w-2 rounded-full bg-primary animate-pulse-soft" />
@@ -23,7 +28,7 @@ export function Hero() {
         <div className="animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 backdrop-blur px-4 py-1.5 text-xs font-medium text-muted-foreground mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-            Agricultural Intelligence · Kenya-first, Africa-wide
+            Agricultural Intelligence Infrastructure · Kenya → Africa
           </div>
           <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight">
             Building Africa's{" "}
@@ -31,23 +36,28 @@ export function Hero() {
             Infrastructure
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-xl leading-relaxed">
-            Mchanga Afya turns soil tests, county data and field observations into precision
-            fertilizer guidance, yield forecasts and food-security decisions — from Nakuru
-            to the Rift Valley and beyond.
+            A unified intelligence platform powering soil analytics, fertilizer optimization,
+            agricultural decision support, yield forecasting and food security planning across Africa.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link to="/login">
+            <a href="#modules">
               <Button size="lg" className="bg-gradient-primary text-primary-foreground hover:opacity-90 gap-2">
-                <LogIn className="h-4 w-4" /> Login to Platform
+                <Sparkles className="h-4 w-4" /> Explore Platform <ArrowRight className="h-4 w-4" />
               </Button>
-            </Link>
+            </a>
             <a href="#contact">
               <Button size="lg" variant="outline" className="gap-2">
-                <Sparkles className="h-4 w-4" /> Request Demo <ArrowRight className="h-4 w-4" />
+                Request County Demonstration
+              </Button>
+            </a>
+            <a href={ADMIN_HUB}>
+              <Button size="lg" variant="ghost" className="gap-2">
+                <LogIn className="h-4 w-4" /> Login to Platform
               </Button>
             </a>
           </div>
+
 
           <div className="mt-12 grid grid-cols-3 gap-6 max-w-lg">
             {[
@@ -114,3 +124,35 @@ function FloatingCard() {
     </div>
   );
 }
+
+function GISOverlay() {
+  return (
+    <svg aria-hidden className="absolute inset-0 h-full w-full opacity-40 mix-blend-screen pointer-events-none" viewBox="0 0 800 600" preserveAspectRatio="none">
+      <defs>
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="oklch(0.78 0.13 85)" strokeWidth="0.4" opacity="0.5" />
+        </pattern>
+        <radialGradient id="heat" cx="65%" cy="35%" r="40%">
+          <stop offset="0%" stopColor="oklch(0.78 0.18 85)" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="oklch(0.62 0.15 145)" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <rect width="800" height="600" fill="url(#grid)" />
+      <rect width="800" height="600" fill="url(#heat)" />
+      {/* mock county boundary */}
+      <path d="M120 420 Q 200 360 280 380 T 460 360 T 640 400 L 660 520 L 140 540 Z"
+        fill="none" stroke="oklch(0.78 0.13 85)" strokeWidth="1.2" strokeDasharray="4 4" opacity="0.7" />
+      {/* pulse nodes */}
+      {[[220, 440], [380, 400], [520, 380], [600, 460]].map(([cx, cy], i) => (
+        <g key={i}>
+          <circle cx={cx} cy={cy} r="3" fill="oklch(0.78 0.18 85)" />
+          <circle cx={cx} cy={cy} r="3" fill="none" stroke="oklch(0.78 0.18 85)" strokeWidth="1">
+            <animate attributeName="r" from="3" to="22" dur="2.4s" begin={`${i * 0.4}s`} repeatCount="indefinite" />
+            <animate attributeName="opacity" from="0.8" to="0" dur="2.4s" begin={`${i * 0.4}s`} repeatCount="indefinite" />
+          </circle>
+        </g>
+      ))}
+    </svg>
+  );
+}
+

@@ -4,11 +4,15 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Slides } from "@/components/sections/Slides";
+import { Modules } from "@/components/sections/Modules";
 import { AIAdvisor } from "@/components/sections/AIAdvisor";
+import { CountyMap } from "@/components/sections/CountyMap";
+import { LiveMetrics } from "@/components/sections/LiveMetrics";
 import { TrustMetrics } from "@/components/sections/TrustMetrics";
 import { RoleAccess } from "@/components/sections/RoleAccess";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -49,13 +53,17 @@ function Index() {
     <div className="min-h-screen">
       <Navbar />
       <Hero />
-      <About />
+      <Modules />
       <Slides />
+      <CountyMap />
+      <LiveMetrics />
       <AIAdvisor />
+      <About />
       <TrustMetrics />
       <RoleAccess />
       <Contact />
       <Footer />
+
       <Toaster richColors position="top-right" />
     </div>
   );

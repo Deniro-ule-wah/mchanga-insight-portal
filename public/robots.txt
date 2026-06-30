@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mchanga-insight-portal.lovable.app/sitemap.xml
